@@ -1,0 +1,95 @@
+#include<windows.h>
+#include <GL/glut.h>
+
+
+void init(void)
+{
+    glClearColor(0.0, 0.0, 0.0, 0.0); // Set display window colour to black
+
+    glMatrixMode(GL_PROJECTION); // Set projection parameters
+    gluOrtho2D(0.0, 50.0, 0.0, 50.0);
+}
+
+void drawShapes(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT); // Clear display window
+
+
+    glColor3f(0.0, 1.0, 0.0);
+    glBegin(GL_POLYGON);
+    glVertex2i(22,9);
+    glVertex2i(12,7);
+    glVertex2i(13,12);
+     glVertex2i(6,21);
+     glVertex2i(23,22);
+    glEnd();
+
+   // ===================
+   glColor3f(1.0, .0, 0.0);
+    glBegin(GL_POLYGON);
+    glVertex2i(23,22);
+    glVertex2i(6,21);
+    glVertex2i(8,23);
+     glVertex2i(7,27);
+     glVertex2i(11,27);
+     glVertex2i(12,30);
+     glVertex2i(15,27);
+     glVertex2i(16,35);
+     glVertex2i(19,34);
+     glVertex2i(22,42);
+    glEnd();
+
+    //=================
+
+    // ===================
+   glColor3f(1.0, 1.0, 0.0);
+    glBegin(GL_POLYGON);
+    glVertex2i(23,22);
+    glVertex2i(36,21);
+    glVertex2i(34,23);
+     glVertex2i(35,27);
+     glVertex2i(31,27);
+     glVertex2i(30,30);
+     glVertex2i(27,27);
+     glVertex2i(29,35);
+     glVertex2i(25,34);
+     glVertex2i(22,42);
+    glEnd();
+
+    //=================
+
+        glColor3f(0.0, 1.0, 1.0);
+    glBegin(GL_POLYGON);
+    glVertex2i(22,9);
+    glVertex2i(31,7);
+    glVertex2i(30,12);
+     glVertex2i(36,21);
+     glVertex2i(23,22);
+    glEnd();
+
+        glColor3f(0.0, 0.5, 0.0);
+    glBegin(GL_TRIANGLES);
+    glVertex2i(24,2);
+    glVertex2i(20,2);
+    glVertex2i(22,9);
+     glVertex2i(6,21);
+     glVertex2i(23,22);
+    glEnd();
+    glFlush(); // Process all OpenGL routines
+
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv); // Initalise GLUT
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB); // Set display mode
+
+    glutInitWindowSize (600, 600);
+    glutInitWindowPosition (100, 100);
+    glutCreateWindow ("Hello");
+
+    init(); // Execute initialisation procedure
+    glutDisplayFunc(drawShapes); // Send graphics to display window
+    glutMainLoop(); // Display everything and wait
+
+    return 0;
+}

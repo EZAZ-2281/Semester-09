@@ -1,0 +1,100 @@
+#include <GL/gl.h>
+#include<stdio.h>
+#include<math.h>
+#include <GL/glut.h>
+
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 270; i <= 450; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+
+void circle2(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 90; i <= 270; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+void circle3(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 0; i <= 360; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+void init(void)
+{
+    glClearColor(0, 0, 0, 0.0);
+    glMatrixMode(GL_PROJECTION);
+    gluOrtho2D(0, 500, 0, 500);
+}
+
+
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    //River Color
+    glColor3ub(0, 0, 0);
+    glBegin(GL_POLYGON);
+    glVertex2d(0, 0);
+    glVertex2d(500, 0);
+    glVertex2d(500, 300);
+    glVertex2d(0, 300);
+    glEnd();
+
+    //sun design
+    glColor3f(0.694, 0, 1);
+    circle(25, 95, 175, 350);
+    glColor3f(1, 0.451, 0);
+    circle2(25, 95, 175, 350);
+
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0, 1.0, 1.0);
+    glVertex2i(175,255);
+    glVertex2i(140,205);
+    glVertex2i(210,205);
+    glEnd();
+
+    //chok
+    glColor3f(1, 1, 1);
+    circle3(7, 10, 175, 425);
+
+    glFlush();
+    glutSwapBuffers();
+}
+
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(1000, 600);
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("A Moving Boat");
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+    return 0;
+}

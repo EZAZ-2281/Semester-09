@@ -1,0 +1,110 @@
+#include <GL/gl.h>
+#include<stdio.h>
+#include<math.h>
+#include <GL/glut.h>
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 0; i <= 360; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+void circle2(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 180; i <= 360; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+void init(void)
+{
+    glClearColor(1.0, 1.0, 1.0, 0.0); // Set display window colour to black
+
+    glMatrixMode(GL_PROJECTION); // Set projection parameters
+    gluOrtho2D(0.0, 50.0, 0.0, 50.0);
+}
+
+void drawShapes(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT); // Clear display window
+
+    //both side
+    glColor3f(0, 0, 0);
+    circle2(15, 15, 25, 28);
+    //sun design
+    glColor3f(0, 0, 0);
+    circle(14, 11, 25, 25);
+
+    //left part
+    glColor3f(1, 1, 1);
+    circle(5, 3, 17, 25);
+    //right part
+    glColor3f(1, 0, 0);
+    circle(5, 3, 33, 25);
+    //left green part
+    glColor3f(0, 1, 0);
+    circle(4, 3, 18, 25);
+    //left black part
+    glColor3f(0, 0, 0);
+    circle(3, 2, 19, 25);
+    //left white part
+    glColor3f(1, 0, 0);
+    circle(1, 1, 20, 25);
+    //right-green part
+    glColor3f(0, 1, 0);
+    circle(4, 3, 32, 25);
+    //right black part
+    glColor3f(0, 0, 0);
+    circle(3, 2, 31, 25);
+     //left white part
+    glColor3f(1, 1, 1);
+    circle(1, 1, 30, 25);
+
+    //glColor3ub(255,219,190);
+    //circle2(8, 6, 25, 20);
+
+    glLineWidth(8.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(25, 15);
+    glVertex2i(23, 18);
+    glEnd();
+    glLineWidth(8.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(25, 15);
+    glVertex2i(27, 18);
+    glEnd();
+
+
+
+    glFlush(); // Process all OpenGL routines
+
+}
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv); // Initalise GLUT
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB); // Set display mode
+
+    glutInitWindowSize (800, 800);
+    glutInitWindowPosition (100, 100);
+    glutCreateWindow ("Hello");
+
+    init(); // Execute initialisation procedure
+    glutDisplayFunc(drawShapes); // Send graphics to display window
+    glutMainLoop(); // Display everything and wait
+
+    return 0;
+}

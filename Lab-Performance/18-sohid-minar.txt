@@ -1,0 +1,168 @@
+#include<windows.h>
+#include <GL/glut.h>
+#include<stdio.h>
+#include<math.h>
+
+void init(void)
+{
+    glClearColor(0.686, 0.886, 0.961, 1.0);
+    glMatrixMode(GL_PROJECTION);
+    gluOrtho2D(0.0, 50.0, 0.0, 50.0);
+}
+void circle(GLfloat rx, GLfloat ry, GLfloat cx, GLfloat cy)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(cx, cy);
+    for (int i = 0; i <= 360; i++)
+    {
+        float angle = i * 3.1416 / 180;
+        float x = rx * cos(angle);
+        float y = ry * sin(angle);
+        glVertex2f((x + cx), (y + cy));
+    }
+    glEnd();
+}
+void behind_circle(void)
+{
+    //sun design
+    glColor3f(0.98, 1, 0);
+    circle(10, 13, 21, 24);
+
+}
+void sohid_minar(void)
+{
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(13, 5);
+    glVertex2i(13, 3);
+    glVertex2i(28, 3);
+    glVertex2i(28, 5);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(13, 30);
+    glVertex2i(13, 5);
+    glVertex2i(14, 5);
+    glVertex2i(14, 30);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(27, 29);
+    glVertex2i(27, 5);
+    glVertex2i(28, 5);
+    glVertex2i(28, 29);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(11, 42);
+    glVertex2i(13, 30);
+    glVertex2i(14, 30);
+    glVertex2i(12, 42);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(29, 42);
+    glVertex2i(27, 29);
+    glVertex2i(28, 29);
+    glVertex2i(30, 42);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(12, 42);
+    glVertex2i(12, 41);
+    glVertex2i(29, 41);
+    glVertex2i(29, 42);
+    glEnd();
+
+    glBegin(GL_QUADS);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(20, 42);
+    glVertex2i(20, 5);
+    glVertex2i(21, 5);
+    glVertex2i(21, 42);
+    glEnd();
+
+    glLineWidth(4.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(13, 32);
+    glVertex2i(28, 32);
+    glEnd();
+
+    glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(16, 32);
+    glVertex2i(16, 5);
+    glEnd();
+
+    glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(15, 42);
+    glVertex2i(16, 32);
+    glEnd();
+
+
+    glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(18, 42);
+    glVertex2i(18, 5);
+    glEnd();
+
+     glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(23, 42);
+    glVertex2i(23, 5);
+    glEnd();
+
+     glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(25, 32);
+    glVertex2i(25, 5);
+    glEnd();
+
+    glLineWidth(3.0);
+    glBegin(GL_LINES);
+    glColor3f(0.859, 0.341, 0.102);
+    glVertex2i(25, 32);
+    glVertex2i(26, 42);
+    glEnd();
+
+}
+
+void display(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(0.0, 0.0, 1.0);
+
+    behind_circle();
+    sohid_minar();
+    glFlush();
+}
+
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+
+    int screen_width = glutGet(GLUT_SCREEN_WIDTH);
+    int screen_height = glutGet(GLUT_SCREEN_HEIGHT);
+    glutInitWindowSize(screen_width, screen_height);
+    glutInitWindowPosition(0, 0);
+    glutCreateWindow("Hello");
+
+    init();
+    glutDisplayFunc(display);
+    glutMainLoop();
+
+    return 0;
+}
