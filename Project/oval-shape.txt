@@ -1,0 +1,42 @@
+#include <GL/glut.h>
+#include <cmath>
+
+// Function to draw an oval shape
+void drawOval() {
+    glBegin(GL_POLYGON);
+
+    float a = 0.5f; // Horizontal radius
+    float b = 0.3f; // Vertical radius
+    int numSegments = 100; // Number of line segments to approximate the ellipse
+
+    for (int i = 0; i <= numSegments; ++i) {
+        float angle = static_cast<float>(i) * (2.0f * 3.14159265359f / numSegments);
+        float x = a * std::cos(angle);
+        float y = b * std::sin(angle);
+        glVertex2f(x, y);
+    }
+
+    glEnd();
+}
+
+// Display callback function
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1.0f, 0.0f, 0.0f); // Set color to red
+    drawOval();
+    glFlush();
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowSize(400, 400);
+    glutCreateWindow("OpenGL Oval Shape");
+
+    glutDisplayFunc(display);
+
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black
+
+    glutMainLoop();
+    return 0;
+}

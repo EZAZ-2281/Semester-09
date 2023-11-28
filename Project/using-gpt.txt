@@ -1,0 +1,141 @@
+#include<windows.h>
+#include <GL/glut.h>
+#include <cmath>
+float sunX = 20.0f; // Initial X position of the sun
+int cyclesCompleted = 0; // Number of completed sun cycles
+bool isBackgroundColorWhite = false;
+
+void init(void)
+{
+    glClearColor(0.0, 0.0, 0.0, 0.0); // Set display window colour to black
+
+    glMatrixMode(GL_PROJECTION); // Set projection parameters
+    gluOrtho2D(0.0, 50.0, 0.0, 50.0);
+}
+
+void drawShapes(void)
+{
+    glClear(GL_COLOR_BUFFER_BIT); // Clear display window
+
+
+    glColor3f(0.0, 0.0, 0.0);
+    glPointSize(5.0);
+    glColor3f(0.0, 1.0, 0.0);
+    glBegin(GL_QUADS);
+    glVertex2i(31,7);
+    glVertex2i(31,4);
+    glVertex2i(10,4);
+    glVertex2i(10,7);
+    glEnd();
+
+    glColor3f(1.0, 0.0, 0.0);
+    glBegin(GL_QUADS);
+    glVertex2i(29,19);
+    glVertex2i(29,7);
+    glVertex2i(12,7);
+    glVertex2i(12,19);
+    glEnd();
+
+    glColor3f(0.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex2i(29,22);
+    glVertex2i(32,19);
+    glVertex2i(9,19);
+    glVertex2i(12,22);
+    glEnd();
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex2i(23,13);
+    glVertex2i(23,7);
+    glVertex2i(18,7);
+    glVertex2i(18,13);
+    glEnd();
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex2i(16,11);
+    glVertex2i(16,9);
+    glVertex2i(14,9);
+    glVertex2i(14,11);
+    glEnd();
+
+    glColor3f(1.0, 1.0, 1.0);
+    glBegin(GL_QUADS);
+    glVertex2i(27,11);
+    glVertex2i(27,9);
+    glVertex2i(25,9);
+    glVertex2i(25,11);
+    glEnd();
+
+    // Update the sun's position for the animation
+    sunX += 0.001f; // Slower animation speed
+
+    if (sunX > 50.0f)
+    {
+        sunX = -5.0f; // Reset the sun's position when it goes off the screen
+        cyclesCompleted++;
+    }
+    // Check if a complete cycle has been completed
+    if (cyclesCompleted % 2 == 0)
+    {
+        isBackgroundColorWhite = true;
+    }
+    else
+    {
+        isBackgroundColorWhite = false;
+    }
+
+    // Change the background color to white after completing one cycle
+    if (cyclesCompleted % 2 == 0)
+    {
+        glClearColor(1.0f, 1.0f, 1.0f, 0.0f); // Set background color to white
+    }
+    else
+    {
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f); // Set background color to black
+    }
+
+    // Draw the sun with the updated position
+    glColor3f(1.0, 1.0, 0.0); // Yellow
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2f(sunX, 40.0f); // Updated position of the sun
+    for (int i = 0; i < 360; i++)
+    {
+        float angle = i * 3.14159265 / 180.0;
+        float x = sunX + 5 * cos(angle); // Radius of 5 units
+        float y = 40 + 5 * sin(angle);
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    glFlush();
+
+    glutPostRedisplay(); // Request a redisplay to create animation
+}
+
+// Timer function for animation
+void timer(int value)
+{
+    glutTimerFunc(33, timer, 0); // Adjust timer interval for slower animation
+
+    glutPostRedisplay(); // Call the animation function
+}
+
+int main(int argc, char* argv[])
+{
+    glutInit(&argc, argv); // Initalise GLUT
+    glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB); // Set display mode
+
+    glutInitWindowSize (600, 600);
+    glutInitWindowPosition (100, 100);
+    glutCreateWindow ("Hello");
+
+    init(); // Execute initialisation procedure
+    glutDisplayFunc(drawShapes); // Send graphics to display window
+    glutTimerFunc(0, timer, 0); // Start the animation timer immediately
+
+    glutMainLoop(); // Display everything and wait
+
+    return 0;
+}
