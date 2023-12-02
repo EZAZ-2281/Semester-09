@@ -1,7 +1,7 @@
 # Scenario:
 
 YouTube Video Link: [Here](https://youtu.be/iRkFE_lpYgc?si=_RnlB9TKfMgECLHR)
-
+![vlan](https://drive.google.com/uc?export=view&id=15XLkXU4bAviWS2I4fZ8l3n57-_GXwXuH)
 #### 1. Configure the switch interfaces connected to PCs as access ports in the correct VLAN.
 
 ```
